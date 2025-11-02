@@ -105,9 +105,10 @@ export function ShedDesigner({ onBack }: ShedDesignerProps) {
 
   const calculatePriceMutation = useMutation({
     mutationFn: async (designData: ShedConfiguration) => {
-      return await apiRequest("POST", "/api/calculate-price", designData);
+      const response = await apiRequest("POST", "/api/calculate-price", designData);
+      return await response.json();
     },
-    onSuccess: (data: any) => {
+    onSuccess: (data: PricingData) => {
       console.log("API Response:", data);
       setPricingData(data);
       const priceMessage: Message = {
@@ -135,8 +136,8 @@ export function ShedDesigner({ onBack }: ShedDesignerProps) {
     const field = step.field;
 
     if (field === "addons") {
-      if (selection === "No thanks, calculate price") {
-        // Calculate price with current design
+      if (selection === "No thanks, calculate price" || selection === "Done, calculate price") {
+        // Calculate price with current design (don't add the button text as an addon!)
         calculatePriceMutation.mutate(design);
       } else {
         // Add addon to design

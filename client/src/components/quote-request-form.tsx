@@ -33,10 +33,11 @@ export function QuoteRequestForm({ shedDesignId, design, pricing, onBack }: Quot
 
   const submitQuoteMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
-      return await apiRequest("POST", "/api/request-quote", {
+      const response = await apiRequest("POST", "/api/request-quote", {
         shedDesignId,
         ...data,
       });
+      return await response.json();
     },
     onSuccess: () => {
       setSubmitted(true);
