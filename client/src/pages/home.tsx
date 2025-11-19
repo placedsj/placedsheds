@@ -15,25 +15,25 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-primary">
+    <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <header className="sticky top-0 z-50 w-full dark-nav">
+      <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
         <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <div className="flex items-center gap-2">
-            <Home className="h-6 w-6 text-vibrant-yellow" />
-            <span className="text-2xl font-bold text-vibrant-yellow" style={{fontFamily: "'Luckiest Guy', cursive", letterSpacing: '0.05em'}}>PLACED</span>
+            <Home className="h-6 w-6 text-primary" />
+            <span className="text-2xl font-bold text-primary">PLACED</span>
           </div>
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#sheds" className="text-sm font-semibold text-white/90 hover:text-vibrant-yellow px-3 py-2 rounded-md transition-colors uppercase tracking-wide" data-testid="link-sheds">
+            <a href="#sheds" className="text-sm font-medium text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-sheds">
               Sheds
             </a>
-            <a href="#roofing" className="text-sm font-semibold text-white/90 hover:text-vibrant-yellow px-3 py-2 rounded-md transition-colors uppercase tracking-wide" data-testid="link-roofing">
+            <a href="#roofing" className="text-sm font-medium text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-roofing">
               Roofing
             </a>
-            <a href="#lights" className="text-sm font-semibold text-white/90 hover:text-vibrant-yellow px-3 py-2 rounded-md transition-colors uppercase tracking-wide" data-testid="link-lights">
+            <a href="#lights" className="text-sm font-medium text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-lights">
               Holiday Lights
             </a>
-            <a href="#contact" className="text-sm font-semibold text-white/90 hover:text-vibrant-yellow px-3 py-2 rounded-md transition-colors uppercase tracking-wide" data-testid="link-contact">
+            <a href="#contact" className="text-sm font-medium text-foreground hover-elevate px-3 py-2 rounded-md transition-colors" data-testid="link-contact">
               Contact
             </a>
           </nav>
@@ -67,62 +67,63 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-24 md:py-32">
+      <section className="relative overflow-hidden bg-gradient-to-b from-accent/30 to-background py-24 md:py-32">
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="mx-auto max-w-4xl text-center">
-            <h1 className="heading-hero animate-glow mb-8">
-              DESIGN YOUR DREAM SHED IN 5 MINUTES
+          <div className="mx-auto max-w-3xl text-center">
+            <h1 className="mb-6 text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+              Design Your Dream Shed in 5 Minutes
             </h1>
-            <p className="mb-10 text-xl md:text-2xl text-white/80 font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>
+            <p className="mb-8 text-xl md:text-2xl text-muted-foreground">
               AI-powered shed designer. Instant quotes. Built in 2 weeks.
             </p>
-            <button 
+            <Button 
+              size="lg" 
               onClick={() => setShowDesigner(true)}
-              className="btn-primary inline-flex items-center gap-2"
+              className="h-12 px-8 text-lg"
               data-testid="button-start-designing-hero"
             >
-              <Zap className="h-5 w-5" />
-              START DESIGNING
-            </button>
+              <Zap className="mr-2 h-5 w-5" />
+              Start Designing
+            </Button>
           </div>
 
           {/* Features Grid */}
           <div className="mt-20 grid gap-6 md:grid-cols-3">
-            <div className="card-primary" data-testid="card-feature-ai">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-vibrant-yellow/10">
-                <Zap className="h-8 w-8 text-vibrant-yellow" />
-              </div>
-              <h3 className="mb-3 text-2xl font-bold text-vibrant-yellow uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>
-                AI-Powered Design
-              </h3>
-              <p className="text-white/70 text-base" style={{fontFamily: "'Poppins', sans-serif"}}>
-                LunAI guides you through every decision with intelligent recommendations
-              </p>
-            </div>
+            <Card className="hover-elevate transition-all duration-300" data-testid="card-feature-ai">
+              <CardHeader>
+                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-md bg-primary/10">
+                  <Zap className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle>AI-Powered Design</CardTitle>
+                <CardDescription>
+                  LunAI guides you through every decision with intelligent recommendations
+                </CardDescription>
+              </CardHeader>
+            </Card>
 
-            <div className="card-primary" data-testid="card-feature-instant">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-vibrant-yellow/10">
-                <CheckCircle2 className="h-8 w-8 text-vibrant-yellow" />
-              </div>
-              <h3 className="mb-3 text-2xl font-bold text-vibrant-yellow uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>
-                Instant Quotes
-              </h3>
-              <p className="text-white/70 text-base" style={{fontFamily: "'Poppins', sans-serif"}}>
-                Real-time pricing with transparent breakdowns and 0% financing options
-              </p>
-            </div>
+            <Card className="hover-elevate transition-all duration-300" data-testid="card-feature-instant">
+              <CardHeader>
+                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-md bg-primary/10">
+                  <CheckCircle2 className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle>Instant Quotes</CardTitle>
+                <CardDescription>
+                  Real-time pricing with transparent breakdowns and 0% financing options
+                </CardDescription>
+              </CardHeader>
+            </Card>
 
-            <div className="card-primary" data-testid="card-feature-fast">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-vibrant-yellow/10">
-                <Hammer className="h-8 w-8 text-vibrant-yellow" />
-              </div>
-              <h3 className="mb-3 text-2xl font-bold text-vibrant-yellow uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>
-                Fast Build Time
-              </h3>
-              <p className="text-white/70 text-base" style={{fontFamily: "'Poppins', sans-serif"}}>
-                Professional installation in just 2 weeks from design to delivery
-              </p>
-            </div>
+            <Card className="hover-elevate transition-all duration-300" data-testid="card-feature-fast">
+              <CardHeader>
+                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-md bg-primary/10">
+                  <Hammer className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle>Fast Build Time</CardTitle>
+                <CardDescription>
+                  Professional installation in just 2 weeks from design to delivery
+                </CardDescription>
+              </CardHeader>
+            </Card>
           </div>
         </div>
       </section>
@@ -130,74 +131,81 @@ export default function HomePage() {
       {/* Services Section */}
       <section id="sheds" className="py-20 md:py-24">
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="mb-16 text-center">
-            <h2 className="heading-section text-vibrant-yellow mb-4">OUR SERVICES</h2>
-            <p className="text-lg text-white/70 font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-4xl font-bold text-foreground">Our Services</h2>
+            <p className="text-lg text-muted-foreground">
               Professional home services tailored to your needs
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">
             {/* Sheds Card */}
-            <div className="card-secondary overflow-hidden" data-testid="card-service-sheds">
-              <div className="aspect-[16/10] bg-gradient-to-br from-vibrant-teal/20 to-vibrant-purple/10 flex items-center justify-center mb-6">
-                <Home className="h-24 w-24 text-vibrant-teal" />
+            <Card className="overflow-hidden hover-elevate transition-all duration-300" data-testid="card-service-sheds">
+              <div className="aspect-[16/10] bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                <Home className="h-20 w-20 text-primary" />
               </div>
-              <h3 className="mb-4 text-2xl font-bold text-vibrant-teal uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>
-                Custom Sheds
-              </h3>
-              <p className="mb-6 text-white/70 text-base" style={{fontFamily: "'Poppins', sans-serif"}}>
-                Design your perfect shed with our AI-powered tool. Choose size, style, materials, and add-ons.
-              </p>
-              <button 
-                onClick={() => setShowDesigner(true)}
-                className="btn-primary w-full"
-                data-testid="button-learn-more-sheds"
-              >
-                START DESIGNING
-              </button>
-            </div>
+              <CardHeader>
+                <CardTitle>Custom Sheds</CardTitle>
+                <CardDescription>
+                  Design your perfect shed with our AI-powered tool. Choose size, style, materials, and add-ons.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => setShowDesigner(true)}
+                  data-testid="button-learn-more-sheds"
+                >
+                  Start Designing
+                </Button>
+              </CardContent>
+            </Card>
 
             {/* Roofing Card */}
-            <div id="roofing" className="card-secondary overflow-hidden" data-testid="card-service-roofing">
-              <div className="aspect-[16/10] bg-gradient-to-br from-vibrant-purple/20 to-vibrant-teal/10 flex items-center justify-center mb-6">
-                <Hammer className="h-24 w-24 text-vibrant-purple" />
+            <Card className="overflow-hidden hover-elevate transition-all duration-300" data-testid="card-service-roofing">
+              <div id="roofing" className="aspect-[16/10] bg-gradient-to-br from-accent/40 to-accent/10 flex items-center justify-center">
+                <Hammer className="h-20 w-20 text-primary" />
               </div>
-              <h3 className="mb-4 text-2xl font-bold text-vibrant-purple uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>
-                Professional Roofing
-              </h3>
-              <p className="mb-6 text-white/70 text-base" style={{fontFamily: "'Poppins', sans-serif"}}>
-                Expert roofing services including repairs, replacements, and new installations.
-              </p>
-              <button className="btn-secondary w-full" data-testid="button-learn-more-roofing">
-                LEARN MORE
-              </button>
-            </div>
+              <CardHeader>
+                <CardTitle>Professional Roofing</CardTitle>
+                <CardDescription>
+                  Expert roofing services including repairs, replacements, and new installations.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button variant="outline" className="w-full" data-testid="button-learn-more-roofing">
+                  Learn More
+                </Button>
+              </CardContent>
+            </Card>
 
             {/* Holiday Lights Card */}
-            <div id="lights" className="card-secondary overflow-hidden" data-testid="card-service-lights">
-              <div className="aspect-[16/10] bg-gradient-to-br from-vibrant-yellow/20 to-vibrant-teal/10 flex items-center justify-center mb-6">
-                <Lightbulb className="h-24 w-24 text-vibrant-yellow" />
+            <Card className="overflow-hidden hover-elevate transition-all duration-300" data-testid="card-service-lights">
+              <div id="lights" className="aspect-[16/10] bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                <Lightbulb className="h-20 w-20 text-primary" />
               </div>
-              <h3 className="mb-4 text-2xl font-bold text-vibrant-yellow uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>
-                Holiday Lights
-              </h3>
-              <p className="mb-6 text-white/70 text-base" style={{fontFamily: "'Poppins', sans-serif"}}>
-                Professional holiday light installation and removal for stunning seasonal displays.
-              </p>
-              <button className="btn-secondary w-full" data-testid="button-learn-more-lights">
-                LEARN MORE
-              </button>
-            </div>
+              <CardHeader>
+                <CardTitle>Holiday Lights</CardTitle>
+                <CardDescription>
+                  Professional holiday light installation and removal for stunning seasonal displays.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button variant="outline" className="w-full" data-testid="button-learn-more-lights">
+                  Learn More
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 md:py-24 bg-black/20">
+      <section className="bg-accent/30 py-20 md:py-24">
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="mb-16 text-center">
-            <h2 className="heading-section text-vibrant-teal mb-4">WHAT OUR CUSTOMERS SAY</h2>
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-4xl font-bold text-foreground">What Our Customers Say</h2>
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
@@ -218,65 +226,63 @@ export default function HomePage() {
                 rating: 5,
               },
             ].map((testimonial, idx) => (
-              <div key={idx} className="card-tertiary" data-testid={`card-testimonial-${idx}`}>
-                <div className="mb-4 flex gap-1">
-                  {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-vibrant-yellow text-vibrant-yellow" />
-                  ))}
-                </div>
-                <p className="mb-4 text-white/80 text-base italic" style={{fontFamily: "'Poppins', sans-serif"}}>
-                  "{testimonial.quote}"
-                </p>
-                <p className="font-bold text-vibrant-purple uppercase tracking-wide" style={{fontFamily: "'Poppins', sans-serif"}}>
-                  {testimonial.name}
-                </p>
-              </div>
+              <Card key={idx} data-testid={`card-testimonial-${idx}`}>
+                <CardHeader>
+                  <div className="mb-2 flex gap-1">
+                    {Array.from({ length: testimonial.rating }).map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                    ))}
+                  </div>
+                  <CardDescription className="text-base italic">
+                    "{testimonial.quote}"
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="font-semibold text-foreground">{testimonial.name}</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="dark-footer py-16">
+      <footer id="contact" className="border-t bg-card py-12">
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="grid gap-12 md:grid-cols-3 mb-12">
+          <div className="grid gap-8 md:grid-cols-3">
             <div>
-              <div className="mb-6 flex items-center gap-2">
-                <Home className="h-8 w-8 text-vibrant-yellow" />
-                <span className="text-3xl font-bold text-vibrant-yellow" style={{fontFamily: "'Luckiest Guy', cursive", letterSpacing: '0.05em'}}>PLACED</span>
+              <div className="mb-4 flex items-center gap-2">
+                <Home className="h-6 w-6 text-primary" />
+                <span className="text-xl font-bold text-primary">PLACED</span>
               </div>
-              <p className="text-white/70 font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>
-                YOUR HOME, OUR HANDS™
+              <p className="text-sm text-muted-foreground font-medium">
+                Your Home, Our Hands™
               </p>
             </div>
 
             <div>
-              <h3 className="mb-6 text-xl font-bold text-vibrant-teal uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>Quick Links</h3>
-              <ul className="space-y-3 text-base">
-                <li><a href="#sheds" className="text-white/80 hover:text-vibrant-yellow transition-colors font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>Custom Sheds</a></li>
-                <li><a href="#roofing" className="text-white/80 hover:text-vibrant-yellow transition-colors font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>Roofing</a></li>
-                <li><a href="#lights" className="text-white/80 hover:text-vibrant-yellow transition-colors font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>Holiday Lights</a></li>
-                <li><a href="https://hhplaced.replit.app" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-vibrant-yellow transition-colors font-bold uppercase tracking-wide" style={{fontFamily: "'Poppins', sans-serif"}}>HOME OWNER'S HANDBOOK</a></li>
+              <h3 className="mb-4 font-semibold text-foreground">Quick Links</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><a href="#sheds" className="hover-elevate px-2 py-1 rounded-md inline-block transition-colors" data-testid="link-footer-sheds">Custom Sheds</a></li>
+                <li><a href="#roofing" className="hover-elevate px-2 py-1 rounded-md inline-block transition-colors" data-testid="link-footer-roofing">Roofing</a></li>
+                <li><a href="#lights" className="hover-elevate px-2 py-1 rounded-md inline-block transition-colors" data-testid="link-footer-lights">Holiday Lights</a></li>
+                <li><a href="https://hhplaced.replit.app" target="_blank" rel="noopener noreferrer" className="hover-elevate px-2 py-1 rounded-md inline-block transition-colors font-semibold" data-testid="link-footer-handbook">Home Owner's Handbook</a></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="mb-6 text-xl font-bold text-vibrant-teal uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>Contact Us</h3>
-              <ul className="space-y-3 text-base">
-                <li className="text-white/80 font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>Email: <a href="mailto:hello@placed.com" className="text-vibrant-yellow hover:text-vibrant-teal transition-colors">hello@placed.com</a></li>
-                <li className="text-white/80 font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>Phone: <a href="tel:5066502122" className="text-vibrant-yellow hover:text-vibrant-teal transition-colors font-bold">(506) 650-2122</a></li>
-                <li className="text-white/70 font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>Available 7 days a week</li>
+              <h3 className="mb-4 font-semibold text-foreground">Contact</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>Email: <a href="mailto:hello@placed.com" className="text-primary hover:underline" data-testid="link-footer-email">hello@placed.com</a></li>
+                <li>Phone: <a href="tel:5066502122" className="text-primary hover:underline font-semibold" data-testid="link-footer-phone">(506) 650-2122</a></li>
+                <li>Available 7 days a week</li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-white/10 pt-8 text-center">
-            <p className="text-vibrant-yellow font-bold text-lg uppercase tracking-widest mb-3" style={{fontFamily: "'Luckiest Guy', cursive"}}>
-              BROUGHT TO YOU BY YOUR FRIENDS AT PLACED YOUR HOME OUR HANDS™
-            </p>
-            <p className="text-white/50 text-sm" style={{fontFamily: "'Poppins', sans-serif"}}>
-              &copy; 2025 PLACED. All rights reserved.
-            </p>
+          <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
+            <p className="font-semibold text-foreground mb-2">BROUGHT TO YOU BY YOUR FRIENDS AT PLACED YOUR HOME OUR HANDS™</p>
+            <p>&copy; 2025 PLACED. All rights reserved.</p>
           </div>
         </div>
       </footer>
