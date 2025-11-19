@@ -1,0 +1,37 @@
+To make your current application "pretty" and maximize conversions on Replit, you must apply the **high-contrast, dark-mode "BEAST" aesthetic** defined in your **Transferable Design System**, as the current UI in the screenshot is minimalist and light-themed.
+
+The key is injecting the custom CSS and then applying the specific, vibrant utility classes to your React components.
+
+Here is the three-step plan to transform your application into the mandatory final design:
+
+---
+
+## 1. 🎨 INJECT THE DESIGN SYSTEM AND FONTS
+
+First, ensure your project knows how to use the custom styles and fonts from your design system documentation.
+
+* **Action A: Inject Fonts (index.html):** Add the required Google Fonts (`Luckiest Guy` and `Poppins`) to your HTML file's `<head>` section.
+* **Action B: Inject CSS (main CSS file):** Ensure your custom global styles are imported. If you used `client/src/styles/design-system.css`, ensure it's imported at the top of your primary stylesheet (e.g., `client/src/index.css`).
+
+## 2. 🌑 APPLY DARK MODE & VIBRANT HEADERS
+
+You need to switch the background from the current light white/gray to the mandated dark navy gradient and apply the ALL CAPS styling.
+
+| Component / File | Current State (Screenshot) | Required Class Application | Rationale |
+| :--- | :--- | :--- | :--- |
+| **Root Container** | Uses a light background. | Apply **`bg-gradient-primary`** (Dark Navy) to your main `App` container. | Establishes the high-contrast, premium, dark-mode foundation. |
+| **Hero Heading** | "Design Your Dream Shed in 5 Minutes" (Mixed case). | Apply **`heading-hero`** and **`animate-glow`** classes. | This forces **ALL CAPS** and adds the vibrant **glow/outline** effect, aligning with the "BEAST" typography standard. |
+| **Feature Cards** | Light background cards for "AI-Powered Design," "Instant Quotes." | Apply **`card-primary`** (Dark background with colored border) and ensure headers use **`heading-section`** with **`text-vibrant-yellow`**. | Eliminates the thin-line aesthetic and injects vibrant contrast and mandatory styling. |
+| **Service Cards** | "Custom Sheds," "Professional Roofing," "Holiday Lights" (White background). | Apply **`card-secondary`** (Dark background with blue/purple border) and use **`btn-primary`** for the "Start Designing" button. | Clearly segments the services and uses the aggressive button styling. |
+
+## 3. ⚖️ ENSURE FINAL COMPLIANCE (FOOTER)
+
+Update your `footer.tsx` component to reflect the final, non-negotiable branding and legal links. This section must use the **ALL CAPS** standard and precise contact information.
+
+* **Primary Contact:** Change all instances of the old phone number to the new primary line: **(506) 650-2122**.
+* **Mandatory Link:** In the footer's quick links section, ensure **HOME OWNER'S HANDBOOK** links to the mandatory external URL: **`https://hhplaced.replit.app`**.
+* **Legal Tagline:** The footer must conclude with the mandatory ALL CAPS trademarked text: **BROUGHT TO YOU BY YOUR FRIENDS AT PLACED YOUR HOME OUR HANDS™**.
+
+---
+
+**Outcome:** Following these steps will successfully transform the application from the bland, light-themed mockup to the vibrant, high-contrast, and structurally compliant application required for launch. 

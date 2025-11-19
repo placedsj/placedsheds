@@ -1,0 +1,214 @@
+/* BEAST AESTHETIC DESIGN SYSTEM - HIGH CONTRAST DARK MODE */
+
+/* ========== GRADIENTS ========== */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #0a1929 0%, #1a2f3f 50%, #0a1929 100%);
+}
+
+.bg-gradient-vibrant {
+  background: linear-gradient(135deg, #21808D 0%, #3BAFBF 50%, #21808D 100%);
+}
+
+/* ========== TYPOGRAPHY ========== */
+.heading-hero {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #FFD700;
+  text-shadow: 
+    0 0 10px rgba(255, 215, 0, 0.5),
+    0 0 20px rgba(255, 215, 0, 0.3),
+    0 0 30px rgba(255, 215, 0, 0.2),
+    2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.heading-section {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.text-vibrant-yellow {
+  color: #FFD700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+.text-vibrant-teal {
+  color: #3BAFBF;
+  text-shadow: 0 0 8px rgba(59, 175, 191, 0.4);
+}
+
+.text-vibrant-purple {
+  color: #9D4EDD;
+  text-shadow: 0 0 8px rgba(157, 78, 221, 0.4);
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow: 
+      0 0 10px rgba(255, 215, 0, 0.5),
+      0 0 20px rgba(255, 215, 0, 0.3),
+      0 0 30px rgba(255, 215, 0, 0.2),
+      2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+  50% {
+    text-shadow: 
+      0 0 20px rgba(255, 215, 0, 0.7),
+      0 0 40px rgba(255, 215, 0, 0.5),
+      0 0 60px rgba(255, 215, 0, 0.3),
+      2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+}
+
+.animate-glow {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* ========== CARD STYLES ========== */
+.card-primary {
+  background: linear-gradient(135deg, rgba(16, 25, 40, 0.95), rgba(26, 37, 50, 0.95));
+  border: 2px solid #FFD700;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 
+    0 0 20px rgba(255, 215, 0, 0.2),
+    0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.card-primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 0 30px rgba(255, 215, 0, 0.4),
+    0 8px 12px rgba(0, 0, 0, 0.4);
+}
+
+.card-secondary {
+  background: linear-gradient(135deg, rgba(16, 25, 40, 0.95), rgba(26, 37, 50, 0.95));
+  border: 2px solid #3BAFBF;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 
+    0 0 20px rgba(59, 175, 191, 0.2),
+    0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.card-secondary:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 0 30px rgba(59, 175, 191, 0.4),
+    0 8px 12px rgba(0, 0, 0, 0.4);
+  border-color: #9D4EDD;
+}
+
+.card-tertiary {
+  background: linear-gradient(135deg, rgba(16, 25, 40, 0.95), rgba(26, 37, 50, 0.95));
+  border: 2px solid #9D4EDD;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 
+    0 0 20px rgba(157, 78, 221, 0.2),
+    0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.card-tertiary:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 0 30px rgba(157, 78, 221, 0.4),
+    0 8px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ========== BUTTON STYLES ========== */
+.btn-primary {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #0a1929;
+  font-weight: 700;
+  font-size: 1.125rem;
+  padding: 0.875rem 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 
+    0 0 15px rgba(255, 215, 0, 0.4),
+    0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 0 25px rgba(255, 215, 0, 0.6),
+    0 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #3BAFBF 0%, #21808D 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  box-shadow: 
+    0 0 15px rgba(59, 175, 191, 0.3),
+    0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 0 25px rgba(59, 175, 191, 0.5),
+    0 6px 10px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* ========== UTILITY CLASSES ========== */
+.text-shadow-strong {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.border-glow-yellow {
+  border-color: #FFD700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.border-glow-teal {
+  border-color: #3BAFBF;
+  box-shadow: 0 0 15px rgba(59, 175, 191, 0.3);
+}
+
+.border-glow-purple {
+  border-color: #9D4EDD;
+  box-shadow: 0 0 15px rgba(157, 78, 221, 0.3);
+}
+
+/* ========== DARK MODE OVERRIDES ========== */
+body.dark-mode {
+  background: #0a1929;
+  color: #E0E0E0;
+}
+
+.dark-nav {
+  background: rgba(10, 25, 41, 0.95);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.dark-footer {
+  background: linear-gradient(180deg, #0a1929 0%, #050d14 100%);
+  border-top: 2px solid rgba(255, 215, 0, 0.3);
+  color: #E0E0E0;
+}
