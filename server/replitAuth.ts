@@ -46,14 +46,21 @@ export function getSession() {
   });
 }
 
-function updateUserSession(
-  user: any,
+// Build a complete SessionUser object for serialization
+export function buildSessionUser(
   tokens: client.TokenEndpointResponse & client.TokenEndpointResponseHelpers
 ) {
-  user.claims = tokens.claims();
-  user.access_token = tokens.access_token;
-  user.refresh_token = tokens.refresh_token;
-  user.expires_at = user.claims?.exp;
+  const claims = tokens.claims();
+  if (!claims) {
+    throw new Error("No claims found in token response");
+  }
+  return {
+    id: claims["sub"],
+    claims,
+    access_token: tokens.access_token,
+    refresh_token: tokens.refresh_token,
+    expires_at: claims.exp,
+  };
 }
 
 async function upsertUser(
@@ -80,10 +87,9 @@ export async function setupAuth(app: Express) {
     tokens: client.TokenEndpointResponse & client.TokenEndpointResponseHelpers,
     verified: passport.AuthenticateCallback
   ) => {
-    const user = {};
-    updateUserSession(user, tokens);
-    await upsertUser(tokens.claims());
-    verified(null, user);
+    const sessionUser = buildSessionUser(tokens);
+    await upsertUser(sessionUser.claims);
+    verified(null, sessionUser);
   };
 
   passport.serializeUser((user: Express.User, cb) => cb(null, user));
@@ -165,7 +171,8 @@ export const isAuthenticated: RequestHandler = async (req, res, next) => {
   try {
     const config = await getOidcConfig();
     const tokenResponse = await client.refreshTokenGrant(config, refreshToken);
-    updateUserSession(user, tokenResponse);
+    const refreshedUser = buildSessionUser(tokenResponse);
+    Object.assign(req.user, refreshedUser);
     return next();
   } catch (error) {
     res.status(401).json({ message: "Unauthorized" });
