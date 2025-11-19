@@ -130,81 +130,74 @@ export default function HomePage() {
       {/* Services Section */}
       <section id="sheds" className="py-20 md:py-24">
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-4xl font-bold text-foreground">Our Services</h2>
-            <p className="text-lg text-muted-foreground">
+          <div className="mb-16 text-center">
+            <h2 className="heading-section text-vibrant-yellow mb-4">OUR SERVICES</h2>
+            <p className="text-lg text-white/70 font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>
               Professional home services tailored to your needs
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">
             {/* Sheds Card */}
-            <Card className="overflow-hidden hover-elevate transition-all duration-300" data-testid="card-service-sheds">
-              <div className="aspect-[16/10] bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                <Home className="h-20 w-20 text-primary" />
+            <div className="card-secondary overflow-hidden" data-testid="card-service-sheds">
+              <div className="aspect-[16/10] bg-gradient-to-br from-vibrant-teal/20 to-vibrant-purple/10 flex items-center justify-center mb-6">
+                <Home className="h-24 w-24 text-vibrant-teal" />
               </div>
-              <CardHeader>
-                <CardTitle>Custom Sheds</CardTitle>
-                <CardDescription>
-                  Design your perfect shed with our AI-powered tool. Choose size, style, materials, and add-ons.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button 
-                  variant="outline" 
-                  className="w-full"
-                  onClick={() => setShowDesigner(true)}
-                  data-testid="button-learn-more-sheds"
-                >
-                  Start Designing
-                </Button>
-              </CardContent>
-            </Card>
+              <h3 className="mb-4 text-2xl font-bold text-vibrant-teal uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>
+                Custom Sheds
+              </h3>
+              <p className="mb-6 text-white/70 text-base" style={{fontFamily: "'Poppins', sans-serif"}}>
+                Design your perfect shed with our AI-powered tool. Choose size, style, materials, and add-ons.
+              </p>
+              <button 
+                onClick={() => setShowDesigner(true)}
+                className="btn-primary w-full"
+                data-testid="button-learn-more-sheds"
+              >
+                START DESIGNING
+              </button>
+            </div>
 
             {/* Roofing Card */}
-            <Card className="overflow-hidden hover-elevate transition-all duration-300" data-testid="card-service-roofing">
-              <div id="roofing" className="aspect-[16/10] bg-gradient-to-br from-accent/40 to-accent/10 flex items-center justify-center">
-                <Hammer className="h-20 w-20 text-primary" />
+            <div id="roofing" className="card-secondary overflow-hidden" data-testid="card-service-roofing">
+              <div className="aspect-[16/10] bg-gradient-to-br from-vibrant-purple/20 to-vibrant-teal/10 flex items-center justify-center mb-6">
+                <Hammer className="h-24 w-24 text-vibrant-purple" />
               </div>
-              <CardHeader>
-                <CardTitle>Professional Roofing</CardTitle>
-                <CardDescription>
-                  Expert roofing services including repairs, replacements, and new installations.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button variant="outline" className="w-full" data-testid="button-learn-more-roofing">
-                  Learn More
-                </Button>
-              </CardContent>
-            </Card>
+              <h3 className="mb-4 text-2xl font-bold text-vibrant-purple uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>
+                Professional Roofing
+              </h3>
+              <p className="mb-6 text-white/70 text-base" style={{fontFamily: "'Poppins', sans-serif"}}>
+                Expert roofing services including repairs, replacements, and new installations.
+              </p>
+              <button className="btn-secondary w-full" data-testid="button-learn-more-roofing">
+                LEARN MORE
+              </button>
+            </div>
 
             {/* Holiday Lights Card */}
-            <Card className="overflow-hidden hover-elevate transition-all duration-300" data-testid="card-service-lights">
-              <div id="lights" className="aspect-[16/10] bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                <Lightbulb className="h-20 w-20 text-primary" />
+            <div id="lights" className="card-secondary overflow-hidden" data-testid="card-service-lights">
+              <div className="aspect-[16/10] bg-gradient-to-br from-vibrant-yellow/20 to-vibrant-teal/10 flex items-center justify-center mb-6">
+                <Lightbulb className="h-24 w-24 text-vibrant-yellow" />
               </div>
-              <CardHeader>
-                <CardTitle>Holiday Lights</CardTitle>
-                <CardDescription>
-                  Professional holiday light installation and removal for stunning seasonal displays.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button variant="outline" className="w-full" data-testid="button-learn-more-lights">
-                  Learn More
-                </Button>
-              </CardContent>
-            </Card>
+              <h3 className="mb-4 text-2xl font-bold text-vibrant-yellow uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>
+                Holiday Lights
+              </h3>
+              <p className="mb-6 text-white/70 text-base" style={{fontFamily: "'Poppins', sans-serif"}}>
+                Professional holiday light installation and removal for stunning seasonal displays.
+              </p>
+              <button className="btn-secondary w-full" data-testid="button-learn-more-lights">
+                LEARN MORE
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="bg-accent/30 py-20 md:py-24">
+      <section className="py-20 md:py-24 bg-black/20">
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-4xl font-bold text-foreground">What Our Customers Say</h2>
+          <div className="mb-16 text-center">
+            <h2 className="heading-section text-vibrant-teal mb-4">WHAT OUR CUSTOMERS SAY</h2>
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
@@ -225,61 +218,65 @@ export default function HomePage() {
                 rating: 5,
               },
             ].map((testimonial, idx) => (
-              <Card key={idx} data-testid={`card-testimonial-${idx}`}>
-                <CardHeader>
-                  <div className="mb-2 flex gap-1">
-                    {Array.from({ length: testimonial.rating }).map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                    ))}
-                  </div>
-                  <CardDescription className="text-base italic">
-                    "{testimonial.quote}"
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="font-semibold text-foreground">{testimonial.name}</p>
-                </CardContent>
-              </Card>
+              <div key={idx} className="card-tertiary" data-testid={`card-testimonial-${idx}`}>
+                <div className="mb-4 flex gap-1">
+                  {Array.from({ length: testimonial.rating }).map((_, i) => (
+                    <Star key={i} className="h-5 w-5 fill-vibrant-yellow text-vibrant-yellow" />
+                  ))}
+                </div>
+                <p className="mb-4 text-white/80 text-base italic" style={{fontFamily: "'Poppins', sans-serif"}}>
+                  "{testimonial.quote}"
+                </p>
+                <p className="font-bold text-vibrant-purple uppercase tracking-wide" style={{fontFamily: "'Poppins', sans-serif"}}>
+                  {testimonial.name}
+                </p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="border-t bg-card py-12">
+      <footer id="contact" className="dark-footer py-16">
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-12 md:grid-cols-3 mb-12">
             <div>
-              <div className="mb-4 flex items-center gap-2">
-                <Home className="h-6 w-6 text-primary" />
-                <span className="text-xl font-bold text-primary">PLACED</span>
+              <div className="mb-6 flex items-center gap-2">
+                <Home className="h-8 w-8 text-vibrant-yellow" />
+                <span className="text-3xl font-bold text-vibrant-yellow" style={{fontFamily: "'Luckiest Guy', cursive", letterSpacing: '0.05em'}}>PLACED</span>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Your Home, Our Hands.
+              <p className="text-white/70 font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>
+                YOUR HOME, OUR HANDS™
               </p>
             </div>
 
             <div>
-              <h3 className="mb-4 font-semibold text-foreground">Services</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#sheds" className="hover-elevate px-2 py-1 rounded-md inline-block transition-colors">Custom Sheds</a></li>
-                <li><a href="#roofing" className="hover-elevate px-2 py-1 rounded-md inline-block transition-colors">Roofing</a></li>
-                <li><a href="#lights" className="hover-elevate px-2 py-1 rounded-md inline-block transition-colors">Holiday Lights</a></li>
+              <h3 className="mb-6 text-xl font-bold text-vibrant-teal uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>Quick Links</h3>
+              <ul className="space-y-3 text-base">
+                <li><a href="#sheds" className="text-white/80 hover:text-vibrant-yellow transition-colors font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>Custom Sheds</a></li>
+                <li><a href="#roofing" className="text-white/80 hover:text-vibrant-yellow transition-colors font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>Roofing</a></li>
+                <li><a href="#lights" className="text-white/80 hover:text-vibrant-yellow transition-colors font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>Holiday Lights</a></li>
+                <li><a href="https://hhplaced.replit.app" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-vibrant-yellow transition-colors font-bold uppercase tracking-wide" style={{fontFamily: "'Poppins', sans-serif"}}>HOME OWNER'S HANDBOOK</a></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="mb-4 font-semibold text-foreground">Contact</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>Email: hello@placed.com</li>
-                <li>Phone: (555) 123-4567</li>
-                <li>Available 7 days a week</li>
+              <h3 className="mb-6 text-xl font-bold text-vibrant-teal uppercase tracking-wide" style={{fontFamily: "'Luckiest Guy', cursive"}}>Contact Us</h3>
+              <ul className="space-y-3 text-base">
+                <li className="text-white/80 font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>Email: <a href="mailto:hello@placed.com" className="text-vibrant-yellow hover:text-vibrant-teal transition-colors">hello@placed.com</a></li>
+                <li className="text-white/80 font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>Phone: <a href="tel:5066502122" className="text-vibrant-yellow hover:text-vibrant-teal transition-colors font-bold">(506) 650-2122</a></li>
+                <li className="text-white/70 font-medium" style={{fontFamily: "'Poppins', sans-serif"}}>Available 7 days a week</li>
               </ul>
             </div>
           </div>
 
-          <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; 2025 PLACED. All rights reserved.</p>
+          <div className="border-t border-white/10 pt-8 text-center">
+            <p className="text-vibrant-yellow font-bold text-lg uppercase tracking-widest mb-3" style={{fontFamily: "'Luckiest Guy', cursive"}}>
+              BROUGHT TO YOU BY YOUR FRIENDS AT PLACED YOUR HOME OUR HANDS™
+            </p>
+            <p className="text-white/50 text-sm" style={{fontFamily: "'Poppins', sans-serif"}}>
+              &copy; 2025 PLACED. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>
