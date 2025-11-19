@@ -2,9 +2,30 @@ import {
   type ShedDesign, 
   type InsertShedDesign,
   type CustomerQuote,
-  type InsertCustomerQuote
+  type InsertCustomerQuote,
+  shedDesigns,
+  customerQuotes
 } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { drizzle } from "drizzle-orm/neon-serverless";
+import { Pool, neonConfig } from "@neondatabase/serverless";
+import { eq } from "drizzle-orm";
+import ws from "ws";
+
+// Database connection setup
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL environment variable is not set");
+}
+
+neonConfig.webSocketConstructor = ws;
+
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const db = drizzle(pool);
+
+// Graceful shutdown handler
+export async function closeDatabase() {
+  await pool.end();
+}
 
 export interface IStorage {
   // Shed Designs
@@ -19,6 +40,8 @@ export interface IStorage {
   getQuotesByShedDesign(shedDesignId: string): Promise<CustomerQuote[]>;
 }
 
+// MemStorage kept for local testing without database
+// In production, DbStorage is used with PostgreSQL
 export class MemStorage implements IStorage {
   private shedDesigns: Map<string, ShedDesign>;
   private customerQuotes: Map<string, CustomerQuote>;
@@ -75,4 +98,40 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export class DbStorage implements IStorage {
+  // Shed Designs
+  async createShedDesign(insertDesign: InsertShedDesign): Promise<ShedDesign> {
+    const [design] = await db.insert(shedDesigns).values(insertDesign).returning();
+    return design;
+  }
+
+  async getShedDesign(id: string): Promise<ShedDesign | undefined> {
+    const [design] = await db.select().from(shedDesigns).where(eq(shedDesigns.id, id));
+    return design;
+  }
+
+  async getAllShedDesigns(): Promise<ShedDesign[]> {
+    return await db.select().from(shedDesigns);
+  }
+
+  // Customer Quotes
+  async createCustomerQuote(insertQuote: InsertCustomerQuote): Promise<CustomerQuote> {
+    const [quote] = await db.insert(customerQuotes).values(insertQuote).returning();
+    return quote;
+  }
+
+  async getCustomerQuote(id: string): Promise<CustomerQuote | undefined> {
+    const [quote] = await db.select().from(customerQuotes).where(eq(customerQuotes.id, id));
+    return quote;
+  }
+
+  async getAllCustomerQuotes(): Promise<CustomerQuote[]> {
+    return await db.select().from(customerQuotes);
+  }
+
+  async getQuotesByShedDesign(shedDesignId: string): Promise<CustomerQuote[]> {
+    return await db.select().from(customerQuotes).where(eq(customerQuotes.shedDesignId, shedDesignId));
+  }
+}
+
+export const storage = new DbStorage();
