@@ -3,8 +3,11 @@ import {
   type InsertShedDesign,
   type CustomerQuote,
   type InsertCustomerQuote,
+  type User,
+  type UpsertUser,
   shedDesigns,
-  customerQuotes
+  customerQuotes,
+  users
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { drizzle } from "drizzle-orm/neon-serverless";
@@ -28,6 +31,10 @@ export async function closeDatabase() {
 }
 
 export interface IStorage {
+  // From Replit Auth blueprint - User operations
+  getUser(id: string): Promise<User | undefined>;
+  upsertUser(user: UpsertUser): Promise<User>;
+  
   // Shed Designs
   createShedDesign(design: InsertShedDesign): Promise<ShedDesign>;
   getShedDesign(id: string): Promise<ShedDesign | undefined>;
@@ -45,17 +52,41 @@ export interface IStorage {
 export class MemStorage implements IStorage {
   private shedDesigns: Map<string, ShedDesign>;
   private customerQuotes: Map<string, CustomerQuote>;
+  private users: Map<string, User>;
 
   constructor() {
     this.shedDesigns = new Map();
     this.customerQuotes = new Map();
+    this.users = new Map();
+  }
+
+  // From Replit Auth blueprint - User operations
+  async getUser(id: string): Promise<User | undefined> {
+    return this.users.get(id);
+  }
+
+  async upsertUser(userData: UpsertUser): Promise<User> {
+    const existingUser = this.users.get(userData.id!);
+    const user: User = {
+      ...userData,
+      id: userData.id ?? randomUUID(),
+      createdAt: existingUser?.createdAt ?? new Date(),
+      updatedAt: new Date(),
+      email: userData.email ?? null,
+      firstName: userData.firstName ?? null,
+      lastName: userData.lastName ?? null,
+      profileImageUrl: userData.profileImageUrl ?? null,
+    };
+    this.users.set(user.id, user);
+    return user;
   }
 
   // Shed Designs
   async createShedDesign(insertDesign: InsertShedDesign): Promise<ShedDesign> {
     const id = randomUUID();
     const design: ShedDesign = { 
-      ...insertDesign, 
+      ...insertDesign,
+      addons: insertDesign.addons ?? [],
       id,
       createdAt: new Date()
     };
@@ -76,6 +107,8 @@ export class MemStorage implements IStorage {
     const id = randomUUID();
     const quote: CustomerQuote = {
       ...insertQuote,
+      address: insertQuote.address ?? null,
+      message: insertQuote.message ?? null,
       id,
       createdAt: new Date()
     };
@@ -99,6 +132,27 @@ export class MemStorage implements IStorage {
 }
 
 export class DbStorage implements IStorage {
+  // From Replit Auth blueprint - User operations
+  async getUser(id: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user;
+  }
+
+  async upsertUser(userData: UpsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values(userData)
+      .onConflictDoUpdate({
+        target: users.id,
+        set: {
+          ...userData,
+          updatedAt: new Date(),
+        },
+      })
+      .returning();
+    return user;
+  }
+
   // Shed Designs
   async createShedDesign(insertDesign: InsertShedDesign): Promise<ShedDesign> {
     const [design] = await db.insert(shedDesigns).values(insertDesign).returning();

@@ -2,6 +2,7 @@ import type { Express } from "express";
 import express from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { setupAuth, isAuthenticated } from "./replitAuth";
 import { z } from "zod";
 import multer from "multer";
 import { mkdirSync, existsSync } from "fs";
@@ -58,6 +59,21 @@ const upload = multer({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // From Replit Auth blueprint - Setup authentication middleware
+  await setupAuth(app);
+
+  // From Replit Auth blueprint - Auth route
+  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      res.json(user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      res.status(500).json({ message: "Failed to fetch user" });
+    }
+  });
+
   // Serve uploaded files
   app.use("/uploads", express.static(uploadDir));
 

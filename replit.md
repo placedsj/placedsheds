@@ -10,6 +10,15 @@ The platform is built as a full-stack TypeScript application using React for the
 
 Preferred communication style: Simple, everyday language.
 
+## Recently Completed Features
+
+**Authentication System (November 19, 2025)**: Implemented Replit Auth with OIDC for user login/signup supporting Google, GitHub, X, Apple, and email/password. Features include:
+- PostgreSQL-backed session storage for reliable state persistence
+- Environment-aware cookie security (HTTP for development, HTTPS for production)
+- Protocol and port-aware callback URLs for cross-environment compatibility
+- Customer dashboard showing user's quote requests
+- Protected API endpoints with isAuthenticated middleware
+
 ## Deferred Features
 
 **Stripe Payment Integration**: Payment processing deferred - user does not have Stripe credentials available yet. This will be implemented when Stripe API keys are provided.

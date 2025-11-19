@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Hammer, Home, Lightbulb, Zap, CheckCircle2, Star } from "lucide-react";
+import { Hammer, Home, Lightbulb, Zap, CheckCircle2, Star, User, LogIn } from "lucide-react";
 import { ShedDesigner } from "@/components/shed-designer";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function HomePage() {
   const [showDesigner, setShowDesigner] = useState(false);
+  const { isAuthenticated, isLoading } = useAuth();
 
   if (showDesigner) {
     return <ShedDesigner onBack={() => setShowDesigner(false)} />;
@@ -34,13 +37,32 @@ export default function HomePage() {
               Contact
             </a>
           </nav>
-          <Button 
-            onClick={() => setShowDesigner(true)} 
-            size="default"
-            data-testid="button-start-designing-nav"
-          >
-            Start Designing
-          </Button>
+          <div className="flex items-center gap-2">
+            {!isLoading && (
+              isAuthenticated ? (
+                <Link href="/dashboard">
+                  <Button variant="ghost" size="default" data-testid="button-dashboard">
+                    <User className="mr-2 h-4 w-4" />
+                    Dashboard
+                  </Button>
+                </Link>
+              ) : (
+                <a href="/api/login">
+                  <Button variant="ghost" size="default" data-testid="button-login">
+                    <LogIn className="mr-2 h-4 w-4" />
+                    Login
+                  </Button>
+                </a>
+              )
+            )}
+            <Button 
+              onClick={() => setShowDesigner(true)} 
+              size="default"
+              data-testid="button-start-designing-nav"
+            >
+              Start Designing
+            </Button>
+          </div>
         </div>
       </header>
 
