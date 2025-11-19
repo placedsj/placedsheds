@@ -30,6 +30,7 @@ export const customerQuotes = pgTable("customer_quotes", {
   phone: text("phone").notNull(),
   address: text("address"),
   message: text("message"),
+  sitePhotos: text("site_photos").array().notNull().default(sql`ARRAY[]::text[]`),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -39,7 +40,9 @@ export const insertShedDesignSchema = createInsertSchema(shedDesigns).omit({
   createdAt: true,
 });
 
-export const insertCustomerQuoteSchema = createInsertSchema(customerQuotes).omit({
+export const insertCustomerQuoteSchema = createInsertSchema(customerQuotes, {
+  sitePhotos: z.array(z.string()).default([]),
+}).omit({
   id: true,
   createdAt: true,
 });

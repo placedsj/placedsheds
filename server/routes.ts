@@ -1,7 +1,11 @@
 import type { Express } from "express";
+import express from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
+import multer from "multer";
+import { mkdirSync, existsSync } from "fs";
+import path from "path";
 
 // Validation schemas
 const calculatePriceSchema = z.object({
@@ -19,9 +23,60 @@ const requestQuoteSchema = z.object({
   phone: z.string(),
   address: z.string().optional(),
   message: z.string().optional(),
+  sitePhotos: z.array(z.string()).optional(),
+});
+
+// Configure multer for file uploads
+const uploadDir = path.join(process.cwd(), "uploads");
+if (!existsSync(uploadDir)) {
+  mkdirSync(uploadDir, { recursive: true });
+}
+
+const uploadStorage = multer.diskStorage({
+  destination: (_req, _file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (_req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({
+  storage: uploadStorage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  fileFilter: (_req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|webp/;
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedTypes.test(file.mimetype);
+    if (extname && mimetype) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only image files (jpeg, jpg, png, webp) are allowed"));
+    }
+  }
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Serve uploaded files
+  app.use("/uploads", express.static(uploadDir));
+
+  // Upload site photos
+  app.post("/api/upload-photos", upload.array("photos", 5), (req, res) => {
+    try {
+      const files = req.files as Express.Multer.File[];
+      if (!files || files.length === 0) {
+        return res.status(400).json({ error: "No files uploaded" });
+      }
+
+      const filePaths = files.map(file => `/uploads/${file.filename}`);
+      res.json({ success: true, filePaths });
+    } catch (error) {
+      console.error("Error uploading photos:", error);
+      res.status(500).json({ error: "Failed to upload photos" });
+    }
+  });
+
   // Calculate shed price
   app.post("/api/calculate-price", async (req, res) => {
     try {
@@ -109,7 +164,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Request quote
   app.post("/api/request-quote", async (req, res) => {
     try {
+      console.log("Quote request received:", JSON.stringify(req.body, null, 2));
       const data = requestQuoteSchema.parse(req.body);
+      console.log("Quote request validated:", JSON.stringify(data, null, 2));
 
       // Verify shed design exists
       const shedDesign = await storage.getShedDesign(data.shedDesignId);
@@ -125,6 +182,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         phone: data.phone,
         address: data.address || null,
         message: data.message || null,
+        sitePhotos: data.sitePhotos || [],
       });
 
       res.json({

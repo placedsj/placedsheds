@@ -4,11 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, CheckCircle2, Send } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Send, Upload, X, Image as ImageIcon } from "lucide-react";
 import { ShedConfiguration } from "@shared/schema";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { Badge } from "@/components/ui/badge";
 
 interface QuoteRequestFormProps {
   shedDesignId: string;
@@ -30,12 +31,63 @@ export function QuoteRequestForm({ shedDesignId, design, pricing, onBack }: Quot
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [uploadedPhotos, setUploadedPhotos] = useState<string[]>([]);
+  const [uploading, setUploading] = useState(false);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    if (uploadedPhotos.length + files.length > 5) {
+      toast({
+        title: "Too many files",
+        description: "You can upload a maximum of 5 photos",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setUploading(true);
+    const formData = new FormData();
+    Array.from(files).forEach(file => {
+      formData.append("photos", file);
+    });
+
+    try {
+      const response = await fetch("/api/upload-photos", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error("Upload failed");
+
+      const data = await response.json();
+      setUploadedPhotos(prev => [...prev, ...data.filePaths]);
+      toast({
+        title: "Photos uploaded",
+        description: `${files.length} photo(s) uploaded successfully`,
+      });
+    } catch (error) {
+      toast({
+        title: "Upload failed",
+        description: "Failed to upload photos. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const removePhoto = (index: number) => {
+    setUploadedPhotos(prev => prev.filter((_, i) => i !== index));
+  };
 
   const submitQuoteMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
       const response = await apiRequest("POST", "/api/request-quote", {
         shedDesignId,
         ...data,
+        sitePhotos: uploadedPhotos,
       });
       return await response.json();
     },
@@ -227,11 +279,71 @@ export function QuoteRequestForm({ shedDesignId, design, pricing, onBack }: Quot
                   />
                 </div>
 
+                <div className="space-y-2">
+                  <Label>Site Photos (Optional)</Label>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Upload photos of your installation site to help us prepare an accurate quote (max 5 photos, 5MB each)
+                  </p>
+                  
+                  <div className="flex flex-col gap-3">
+                    <div className="relative">
+                      <Input
+                        id="photo-upload"
+                        type="file"
+                        accept="image/jpeg,image/jpg,image/png,image/webp"
+                        multiple
+                        onChange={handleFileUpload}
+                        disabled={uploading || uploadedPhotos.length >= 5}
+                        className="cursor-pointer"
+                        data-testid="input-photo-upload"
+                      />
+                      {uploading && (
+                        <div className="absolute inset-0 bg-background/80 flex items-center justify-center rounded-md">
+                          <span className="text-sm text-muted-foreground">Uploading...</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {uploadedPhotos.length > 0 && (
+                      <div className="grid grid-cols-2 gap-2">
+                        {uploadedPhotos.map((photo, index) => (
+                          <div
+                            key={index}
+                            className="relative group rounded-md border bg-card overflow-hidden aspect-video"
+                            data-testid={`photo-preview-${index}`}
+                          >
+                            <img
+                              src={photo}
+                              alt={`Site photo ${index + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removePhoto(index)}
+                              className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                              data-testid={`button-remove-photo-${index}`}
+                            >
+                              <X className="h-3 w-3" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {uploadedPhotos.length === 0 && (
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground p-3 border border-dashed rounded-md">
+                        <ImageIcon className="h-4 w-4" />
+                        <span>No photos uploaded yet</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
                 <Button
                   type="submit"
                   className="w-full"
                   size="lg"
-                  disabled={submitQuoteMutation.isPending}
+                  disabled={submitQuoteMutation.isPending || uploading}
                   data-testid="button-submit-quote"
                 >
                   {submitQuoteMutation.isPending ? (

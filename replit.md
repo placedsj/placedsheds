@@ -10,6 +10,10 @@ The platform is built as a full-stack TypeScript application using React for the
 
 Preferred communication style: Simple, everyday language.
 
+## Deferred Features
+
+**Stripe Payment Integration**: Payment processing deferred - user does not have Stripe credentials available yet. This will be implemented when Stripe API keys are provided.
+
 ## System Architecture
 
 ### Frontend Architecture
